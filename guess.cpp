@@ -1,9 +1,14 @@
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
+#include <limits>
 
 int main() {
     
+    char playagain = 'y';
+
+    while (playagain == 'y') {
+
     int guess;
     int tries = 1;
 
@@ -14,6 +19,14 @@ int main() {
     std::cin >> guess;
 
     while (guess != number) {
+
+    if (std::cin.fail()){
+        std::cin.clear();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        std::cout << "Regan is illiterate, so please enter a number!\n" << "Try again!" << std::endl;
+        std::cin >> guess;
+        continue;
+    }
 
     if (guess > number) {
         std::cout << "A little lower! Try again!" << std::endl;
@@ -26,14 +39,20 @@ int main() {
 
     }
 
-    if (tries < 7) {
+    if (tries < 8) {
      std::cout << "You took " << tries << " tries\n"
      << "Regan got scared and fled!" << std::endl;
     }
+
     else { 
         std::cout << "You took " << tries << " tries\n" 
         << "You better run because Regan will get you!" << std::endl;
     }
 
-    return 0;
+    std::cout << "Regan wants to play again! Do you? (y/n)" << std::endl;
+    std::cin >> playagain;
+
+    }
+
+    std::cout << "Thanks for playing! See you next time!" << std::endl;
 }
